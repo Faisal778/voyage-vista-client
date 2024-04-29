@@ -1,6 +1,7 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import AllTouristSpots from '../pages/AllTouristSpots';
+import UseAuth from '../hooks/UseAuth';
 
 const Navbar = () => {
     const navLinks = <>
@@ -11,6 +12,8 @@ const Navbar = () => {
         <li><NavLink to = 'myList'>My List</NavLink></li>
 
     </>
+
+     const {logout, user} = UseAuth();
     return (
         <div className="navbar bg-base-100">
         <div className="navbar-start">
@@ -29,9 +32,44 @@ const Navbar = () => {
            {navLinks}
           </ul>
         </div>
-        <div className="navbar-end">
-         <NavLink to = 'login'> <a className="btn">Login</a></NavLink>
+        
+
+<div className="navbar-end">
+  {
+    user?.email ?
+    <div className='dropdown dropdown-end'>
+      <label tabIndex={0} className='btn btn-ghost btn-circle avatar'>
+        <div className='w-10 rounded-full'>
+          <img src="https/image" alt="profile image" />
         </div>
+      </label>
+
+      <ul tabIndex={0} className='menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52'>
+        <li>
+          <button className='btn btn-sm btn-ghost'>name</button>
+        </li>
+        <li>
+          <button
+          onClick={logout}
+          className='btn btn-sm btn-ghost'>Logout </button>
+        </li>
+      </ul>
+    </div>
+    :
+      <div>
+ <Link to="/login">
+      <button className='btn btn-sm btn-ghost'>Login</button>
+    </Link>
+    <Link to="/register">
+      <button className='btn btn-sm btn-ghost'>Register</button>
+    </Link>
+
+        </div>
+
+    
+  }
+</div>
+
       </div>
     );
 };

@@ -2,9 +2,14 @@ import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from './AuthProvider';
 import { useForm } from 'react-hook-form';
+import UseAuth from '../hooks/UseAuth';
+import SocialLogin from '../components/SocialLogin';
+import { getAuth } from 'firebase/auth';
 
 const Login = () => {
-    const {singInUser} = useContext(AuthContext)
+
+    const {singInUser}  = UseAuth();
+
 
 
     const {
@@ -57,7 +62,8 @@ const Login = () => {
           <button className="btn btn-primary">Login</button>
         </div>
       </form>
-    </div>
+        <SocialLogin></SocialLogin>
+     </div>
 
     <p>Do not have an account? Please <Link to ='/register' className='text-blue-400'>Register</Link></p>
   </div>
