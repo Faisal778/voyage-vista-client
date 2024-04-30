@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import UseAuth from '../hooks/UseAuth';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 const MyList = () => {
     const {user} = UseAuth() || {};
@@ -70,7 +71,9 @@ Swal.fire({
                   <td>{item.country_name}</td>
                   <td>{item.seasonality}</td>
                   <td>{item.cost}</td> 
-                  <td><button className='btn btn-secondary'>Update</button></td> 
+                  <td><Link to = {`update/${item._id}`}>
+                  <button className='btn btn-secondary'>Update</button>
+                  </Link></td> 
                   <td><button 
                   onClick={()=> handleDelete(item._id)}
                   className='btn btn-warning'>Delete</button></td>
