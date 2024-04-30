@@ -1,9 +1,22 @@
 import React from 'react';
 import UseAuth from '../hooks/UseAuth';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const SocialLogin = () => {
 
     const {googleLogin, facebookLogin} = UseAuth();
+
+    const navigate = useNavigate()
+    const location = useLocation()
+    const form = location?.state || '/'
+    const handleSocialLogin = socialProvider => {
+        socialProvider()
+        .then(result => {
+            if (result.user){
+                navigate(form)
+            }
+        })
+    }
     return (
         <>
         
@@ -12,12 +25,12 @@ const SocialLogin = () => {
       <div  className='flex justify-around'>
       <div>
             <button
-            onClick={() => googleLogin()} className='btn btn-secondary m-2 ml-4'>Google</button>
+            onClick={() => handleSocialLogin(googleLogin)} className='btn btn-secondary m-2 ml-4'>Google</button>
         </div>
         
         <div>
             <button
-            onClick={() => facebookLogin()} className='btn btn-secondary m-2 ml-4'>Facebook</button>
+            onClick={() => handleSocialLogin(facebookLogin)} className='btn btn-secondary m-2 ml-4'>Facebook</button>
         </div>
 
       </div>
