@@ -71,9 +71,9 @@ Swal.fire({
                   <td>{item.country_name}</td>
                   <td>{item.seasonality}</td>
                   <td>{item.cost}</td> 
-                  <td><Link to = {`update/${item._id}`}>
-                  <button className='btn btn-secondary'>Update</button>
-                  </Link></td> 
+                  <Link to = {`update/${item._id}`}><td>
+                  <button className='btn btn-secondary'>Update</button></td> 
+                  </Link>
                   <td><button 
                   onClick={()=> handleDelete(item._id)}
                   className='btn btn-warning'>Delete</button></td>
