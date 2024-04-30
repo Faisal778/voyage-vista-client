@@ -16,6 +16,7 @@ import Root from './Root.jsx';
 import AllTouristSpots from './pages/AllTouristSpots.jsx';
 import AddTouristSpot from './pages/AddTouristSpot.jsx';
 import MyList from './pages/MyList.jsx';
+import PrivateRoute from './pages/PrivateRoute.jsx';
 
 
 const router = createBrowserRouter([
@@ -42,11 +43,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'addTouristSpot',
-        element: <AddTouristSpot></AddTouristSpot>
+        element: <PrivateRoute><AddTouristSpot></AddTouristSpot></PrivateRoute>
       }, 
       {
         path : 'myList',
-        element: <MyList></MyList>
+        element:<PrivateRoute> <MyList></MyList></PrivateRoute>
       }
 
 
