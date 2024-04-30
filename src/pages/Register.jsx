@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "./AuthProvider";
 import { useForm } from "react-hook-form";
 import UseAuth from "../hooks/UseAuth";
@@ -13,11 +13,21 @@ const Register = () => {
     watch,
     formState: { errors },
   } = useForm();
+
+
+  
+  const navigate = useNavigate()
+  const location = useLocation()
+  const from = location?.state || '/'
+
+
   const onSubmit = (data) => {
        const {email, password} = data;
        createUser(email, password)
        .then(result => {
-        console.log(result)
+         if(result.user){
+            navigate(from)
+         }
        })
   };
   return (

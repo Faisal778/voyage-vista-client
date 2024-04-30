@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from './AuthProvider';
 import { useForm } from 'react-hook-form';
 import UseAuth from '../hooks/UseAuth';
@@ -18,15 +18,25 @@ const Login = () => {
         watch,
         formState: { errors },
       } = useForm();
+
+
+        
+  const navigate = useNavigate()
+  const location = useLocation()
+  const from = location?.state || '/'
+
+
       const onSubmit = data => {
         const {email, password} =  data;
+
+
         singInUser(email, password)
         .then(result => {
-            console.log(result.user);
+            if(result.user){
+                navigate(from)
+            }
         })
-        .catch(error => {
-            console.log(error)
-        })
+        
       }
     
 
