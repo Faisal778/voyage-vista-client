@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import UseAuth from '../hooks/UseAuth';
+import Swal from 'sweetalert2';
 
 const MyList = () => {
     const {user} = UseAuth() || {};
-    const [item, setItem] = useState([]);
+    const [items, setItem] = useState([]);
     useEffect (() =>{
 
         fetch(`http://localhost:5000/myTouristSpot/${user?.email}`)
@@ -14,17 +15,66 @@ const MyList = () => {
     }, [user])
 
 
+    const handleDelete = _id => {
+console.log(_id)
+Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: "Deleted!",
+        text: "Your file has been deleted.",
+        icon: "success"
+      });
+    }
+  });
+    }
     return (
         <div>
+            <div className="overflow-x-auto w-[90%] mx-auto mt-8">
+  <table className="table table-xs">
+    <thead>
+      <tr>
+       
+        <th>Location</th> 
+        <th>Country Name</th> 
+        <th>Seasonality</th>
+        <th>Cost</th> 
+        <th>Update</th> 
+        <th>Delete</th> 
+      </tr>
+    </thead> 
            {
-            item.map(p => (
-                <div>
-                    {p.name}
-                </div>
+            items.map(item => (
+                <tbody key= {item._id}>
+                <tr>
+                 
+                  <td>{item.location}</td> 
+                  <td>{item.country_name}</td>
+                  <td>{item.seasonality}</td>
+                  <td>{item.cost}</td> 
+                  <td><button className='btn btn-secondary'>Update</button></td> 
+                  <td><button 
+                  onClick={()=> handleDelete(item._id)}
+                  className='btn btn-warning'>Delete</button></td>
+                </tr>
+                </tbody>
                ))
            }
+             </table>
         </div>
+        </div>
+      
     );
+
+    
+   
 };
 
 export default MyList;
