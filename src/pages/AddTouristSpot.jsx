@@ -21,13 +21,29 @@ const AddTouristSpot = () => {
         const seasonality = form.seasonality.value;
         const travel_time = form.travel_time.value;
         const totaVisitorsPerYear = form.totaVisitorsPerYear.value;
-
-        const info = {name, email, image, tourists_spot_name, country_name, location , short_description,  average_cost,seasonality , travel_time , totaVisitorsPerYear  };
-
-
         const user_email = user.email;
 
-        console.log(info, user_email)
+        const newSpot = {name, email, image, tourists_spot_name, country_name, location , short_description,  average_cost,seasonality , travel_time , totaVisitorsPerYear ,user_email };
+
+
+
+
+
+
+        fetch('http://localhost:5000/addTouristSpots',{
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(newSpot)
+
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+        })
+
+
     }
   return (
     <div className="add-tourist-spot">
