@@ -1,6 +1,6 @@
 import React from "react";
 import UseAuth from "../hooks/UseAuth";
-
+import Swal from 'sweetalert2'
 const AddTouristSpot = () => {
 
     const {user} = UseAuth() || {};
@@ -40,7 +40,14 @@ const AddTouristSpot = () => {
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data)
+           if(data.insertedId){
+            Swal.fire({
+                title: "Good job!",
+                text: "New Tourist spot added successfully.",
+                icon: "success",
+                confirmButtonText: 'okay'
+              });
+           }
         })
 
 
